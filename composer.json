@@ -1,0 +1,38 @@
+{
+    "name": "pelletiermaxime/laravel-scaffold-admin",
+    "description": "Commands to generate scaffolding for an admin CRUD.",
+    "keywords": [
+        "Laravel",
+        "Scaffolding",
+        "Admin"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maxime Pelletier",
+            "email": "pelletiermaxime@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/pelletiermaxime/laravel-scaffold-admin",
+    "autoload": {
+        "psr-4": {
+            "Pelletiermaxime\\LaravelScaffoldAdmin\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pelletiermaxime\\LaravelScaffoldAdmin\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
