@@ -57,12 +57,11 @@ class ServiceProvider extends ServiceProvider
         //     __DIR__.'/../config/config.php' => config_path($this->packageName.'.php'),
         // ]);
 
+        $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+
         $this->commands(
-            // 'Appzcoder\CrudGenerator\Commands\CrudCommand',
-            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldController'
-            // 'Appzcoder\CrudGenerator\Commands\CrudModelCommand',
-            // 'Appzcoder\CrudGenerator\Commands\CrudMigrationCommand',
-            // 'Appzcoder\CrudGenerator\Commands\CrudViewCommand'
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldController',
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration'
         );
     }
 }
