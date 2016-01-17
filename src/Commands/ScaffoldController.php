@@ -23,6 +23,7 @@ class ScaffoldController extends GeneratorCommand
     protected $type = 'Controller';
 
     private $className;
+    private $modelName;
 
     /**
      * Execute the console command.
@@ -42,6 +43,8 @@ class ScaffoldController extends GeneratorCommand
         }
 
         $this->className = str_replace($this->getNamespace($name).'\\', '', $name);
+        $this->modelName = $this->getNameInput();
+        $this->viewName = strtolower($this->getNameInput());
 
         $this->makeDirectory($path);
 
@@ -83,7 +86,11 @@ class ScaffoldController extends GeneratorCommand
     protected function buildClass($name)
     {
         $class = $this->className;
-        $view = view('scaffold-admin::controller', compact('class'))->render();
+        $view = view('scaffold-admin::controller')
+            ->withClass($class)
+            ->withModel($this->modelName)
+            ->withView($this->viewName)
+            ->render();
         return "<?php\n" . $view;
     }
 

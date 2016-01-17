@@ -14,7 +14,9 @@ class {{ $class }} extends Controller
      */
     public function index()
     {
-        //
+        ${{ $view }} = {{ $model }}::paginate(15);
+
+        return view('admin.{{ $view }}.index', compact('{{ $view }}'));
     }
 
     /**
