@@ -61,7 +61,8 @@ class ServiceProvider extends ServiceProvider
 
         $this->commands(
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldController',
-            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration'
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration',
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldModel'
         );
     }
 }
