@@ -16,7 +16,8 @@ class {{ $class }} extends Controller
     {
         ${{ $view }} = {{ $model }}::paginate(15);
 
-        return view('admin.{{ $view }}.index', compact('{{ $view }}'));
+        //return view('admin.{{ $view }}.index', compact('{{ $view }}'));
+        return view('admin.home');
     }
 
     /**

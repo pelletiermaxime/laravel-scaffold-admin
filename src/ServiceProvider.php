@@ -24,26 +24,9 @@ class ServiceProvider extends ServiceProvider
         }
 
         // // Register Views from your package
-        // $this->loadViewsFrom(__DIR__.'/../views', $this->packageName);
+        // $this->loadViewsFrom(__DIR__.'/../resources/views', $this->packageName);
 
         $this->loadViewsFrom(__DIR__ . '/stubs', 'scaffold-admin');
-
-        // // Register your asset's publisher
-        // $this->publishes([
-        //     __DIR__.'/../assets' => public_path('vendor/'.$this->packageName),
-        // ], 'public');
-
-        // // Register your migration's publisher
-        // $this->publishes([
-        //     __DIR__.'/../database/migrations/' => base_path('/database/migrations')
-        // ], 'migrations');
-
-        // // Publish your seed's publisher
-        // $this->publishes([
-        //     __DIR__.'/../database/seeds/' => base_path('/database/seeds')
-        // ], 'seeds');
-
-        //
     }
 
     /**
@@ -53,16 +36,25 @@ class ServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->publishes([
-        //     __DIR__.'/../config/config.php' => config_path($this->packageName.'.php'),
-        // ]);
+        $this->publishes($this->assetsPath(), $this->packageName);
 
         $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
 
         $this->commands(
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldController',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration',
-            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldModel'
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldModel',
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldView'
         );
+    }
+
+    private function assetsPath()
+    {
+        $localAssetsPath = __DIR__.'/../public';
+        return [
+            "$localAssetsPath/css"     => public_path('css'),
+            "$localAssetsPath/js"      => public_path('js'),
+            "$localAssetsPath/fonts"   => public_path('fonts'),
+        ];
     }
 }
