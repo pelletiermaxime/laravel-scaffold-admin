@@ -1,4 +1,4 @@
-namespace App\Http\Controllers;
+namespace {{ $namespace }};
 
 use Illuminate\Http\Request;
 

@@ -7,37 +7,69 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
 
-## Install
+## Installation
 
 Via Composer
 
-``` bash
+```bash
 $ composer require :vendor/:package_name
 ```
 
 ## Usage
 
-``` php
+### Scaffold a Controller
 
+```bash
+php artisan scaffold-admin:controller  Scaffold an admin controller for a model
+
+name : Name of the associated model
+--controller-name=$modelController : Controller name. Defaults to name of the model followed by Controller
+--no-route : Disable the default route appended to your routes.php file.
+```
+
+Exemples:
+
+```bash
+php artisan scaffold-admin:controller Posts
+```
+
+will generate the file `app/Http/Controllers/Admin/PostsController.php` with a `PostsController` class.
+
+```bash
+php artisan scaffold-admin:controller Posts --controller-name=Posts
+```
+
+will generate the file `app/Http/Controllers/Admin/Posts.php` with a `Posts` class.
+
+### Scaffold a Migration file
+
+```bash
+php artisan scaffold-admin:migration   Scaffold a migration file.
+```
+
+### Scaffold a Model file
+
+```bash
+php artisan scaffold-admin:model       Scaffold a model class.
+```
+
+### Scaffold a View file
+
+```bash
+php artisan scaffold-admin:view        Scaffold the views for a model
 ```
 
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-## Testing
-
-``` bash
-$ composer test
-```
 
 ## Credits
 
-- [:author_name][link-author]
-- [All Contributors][link-contributors]
+- [Maxime Pelletier][link-author]
+
+Thanks to the following packages for the inspiration :
 
 https://github.com/laracasts/Laravel-5-Generators-Extended
 https://github.com/acacha/adminlte-laravel/
@@ -58,5 +90,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/:vendor/:package_name/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/:vendor/:package_name
 [link-downloads]: https://packagist.org/packages/:vendor/:package_name
-[link-author]: https://github.com/:author_username
-[link-contributors]: ../../contributors
+[link-author]: https://github.com/pelletiermaxime

@@ -32,23 +32,25 @@ class ScaffoldController extends GeneratorCommand
      */
     public function handle()
     {
-        $name = $this->parseName($this->getNameInput() . 'Controller');
-
-        $path = $this->getPath($name);
-
-        if ($this->alreadyExists($this->getNameInput())) {
-            $this->error($this->type.' already exists!');
-
-            return false;
+        if ($this->option('controller-name') !== '$modelController') {
+            $name = $this->option('controller-name');
+        } else {
+            $name = $this->getNameInput() . 'Controller';
         }
 
-        $this->className = str_replace($this->getNamespace($name).'\\', '', $name);
+        $fullName = $this->parseName($name);
+
+        $path = $this->getPath($fullName);
+
+        $this->className = str_replace($this->getNamespace($fullName).'\\', '', $fullName);
+
         $this->modelName = $this->getNameInput();
+
         $this->viewName = strtolower($this->getNameInput());
 
         $this->makeDirectory($path);
 
-        $this->files->put($path, $this->buildClass($name));
+        $this->files->put($path, $this->buildClass($fullName));
 
         $this->appendRoute($this->getNameInput());
 
@@ -90,6 +92,7 @@ class ScaffoldController extends GeneratorCommand
             ->withClass($class)
             ->withModel($this->modelName)
             ->withView($this->viewName)
+            ->withNamespace($this->getNamespace($name))
             ->render();
         return "<?php\n" . $view;
     }
@@ -100,7 +103,7 @@ class ScaffoldController extends GeneratorCommand
         $routeFile = app_path('Http/routes.php');
 
         if ($appendRoute && file_exists($routeFile)) {
-            $route = "\nRoute::resource('" . strtolower($nameInput) . "', '{$this->className}');";
+            $route = "\nRoute::resource('" . strtolower($nameInput) . "', 'Admin\\{$this->className}');";
             if ($this->files->append($routeFile, $route) !== false) {
                 $this->info('Resource route added to ' . $routeFile);
             } else {
