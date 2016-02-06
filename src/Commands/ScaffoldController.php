@@ -2,18 +2,10 @@
 
 namespace Pelletiermaxime\LaravelScaffoldAdmin\Commands;
 
-use Illuminate\Console\GeneratorCommand;
+use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 
-class ScaffoldController extends GeneratorCommand
+class ScaffoldController extends ScaffoldBase
 {
-    protected $signature = '
-        scaffold-admin:controller
-        {name : Name of the associated model}
-        {--controller-name=$modelController : Controller name. Defaults to name of the model followed by Controller}
-        {--no-route : Disable the default route appended to your routes.php file.}
-    ';
-
-    protected $description = 'Scaffold an admin controller for a model';
 
     /**
      * The type of class being generated.
@@ -24,60 +16,73 @@ class ScaffoldController extends GeneratorCommand
 
     private $className;
     private $modelName;
+    private $controllerName;
+    private $fullControllerName;
+    private $pathController;
+    private $generateRoute;
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function nameController($controllerName)
     {
-        if ($this->option('controller-name') !== '$modelController') {
-            $name = $this->option('controller-name');
-        } else {
-            $name = $this->getNameInput() . 'Controller';
+        $this->controllerName = $controllerName;
+        return $this;
+    }
+
+    public function nameFullControllerName($fullControllerName)
+    {
+        $this->fullControllerName = $fullControllerName;
+        return $this;
+    }
+
+    public function nameModel($nameModel)
+    {
+        $this->modelName = $nameModel;
+        return $this;
+    }
+
+    public function nameRoute($nameRoute)
+    {
+        $this->routeName = $nameRoute;
+        return $this;
+    }
+
+    public function nameView($nameView)
+    {
+        $this->viewName = $nameView;
+        return $this;
+    }
+
+    public function pathRoute($pathRoute)
+    {
+        $this->pathRoute = $pathRoute;
+        return $this;
+    }
+
+    public function pathController($pathController)
+    {
+        $this->pathController = $pathController;
+        return $this;
+    }
+
+    public function route($route)
+    {
+        $this->generateRoute = $route;
+        return $this;
+    }
+
+    public function generate()
+    {
+        $fullControllerName = $this->fullControllerName;
+
+        $this->className = str_replace($this->getNamespace($fullControllerName).'\\', '', $fullControllerName);
+
+        $this->makeDirectory($this->pathController);
+
+        $this->files->put($this->pathController, $this->buildClass($fullControllerName));
+
+        if ($this->generateRoute) {
+            $this->appendRoute();
         }
-
-        $fullName = $this->parseName($name);
-
-        $path = $this->getPath($fullName);
-
-        $this->className = str_replace($this->getNamespace($fullName).'\\', '', $fullName);
-
-        $this->modelName = $this->getNameInput();
-
-        $this->viewName = strtolower($this->getNameInput());
-
-        $this->makeDirectory($path);
-
-        $this->files->put($path, $this->buildClass($fullName));
-
-        $this->appendRoute($this->getNameInput());
-
-        $this->info($this->type.' created successfully.');
     }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return __DIR__.'/../stubs/controller.blade.php';
-    }
-
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string  $rootNamespace
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Http\Controllers\Admin';
-    }
-
 
     /**
      * Build the class with the given name.
@@ -85,7 +90,7 @@ class ScaffoldController extends GeneratorCommand
      * @param  string  $name
      * @return string
      */
-    protected function buildClass($name)
+    private function buildClass($name)
     {
         $class = $this->className;
         $view = view('scaffold-admin::controller')
@@ -97,18 +102,13 @@ class ScaffoldController extends GeneratorCommand
         return "<?php\n" . $view;
     }
 
-    private function appendRoute($nameInput)
+    private function appendRoute()
     {
-        $appendRoute = ($this->option('no-route') !== true);
-        $routeFile = app_path('Http/routes.php');
+        $routeFile = $this->pathRoute;
 
-        if ($appendRoute && file_exists($routeFile)) {
-            $route = "\nRoute::resource('" . strtolower($nameInput) . "', 'Admin\\{$this->className}');";
-            if ($this->files->append($routeFile, $route) !== false) {
-                $this->info('Resource route added to ' . $routeFile);
-            } else {
-                $this->info('Unable to add the route to ' . $routeFile);
-            }
+        if (file_exists($routeFile)) {
+            $route = "\nRoute::resource('" . $this->routeName . "', 'Admin\\{$this->className}');";
+            return $this->files->append($routeFile, $route);
         }
     }
 }

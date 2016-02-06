@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ServiceProvider extends ServiceProvider
+class ScaffolderServiceProvider extends ServiceProvider
 {
     /**
      * This will be used to register config & view in
@@ -41,7 +41,7 @@ class ServiceProvider extends ServiceProvider
         $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
 
         $this->commands(
-            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldController',
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldControllerCommand',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldModel',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldView'
