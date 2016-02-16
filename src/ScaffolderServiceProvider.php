@@ -51,10 +51,11 @@ class ScaffolderServiceProvider extends ServiceProvider
     private function assetsPath()
     {
         $localAssetsPath = __DIR__.'/../public';
+        $adminAssetsPath = public_path('admin');
         return [
-            "$localAssetsPath/css"     => public_path('css'),
-            "$localAssetsPath/js"      => public_path('js'),
-            "$localAssetsPath/fonts"   => public_path('fonts'),
+            "$localAssetsPath/css"     => "$adminAssetsPath/css",
+            "$localAssetsPath/js"      => "$adminAssetsPath/js",
+            "$localAssetsPath/fonts"   => "$adminAssetsPath/fonts",
         ];
     }
 }

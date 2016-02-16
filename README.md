@@ -13,7 +13,8 @@
 Via Composer
 
 ```bash
-$ composer require :vendor/:package_name
+$ composer require pelletiermaxime/laravel-scaffold-admin
+$ php artisan vendor:publish
 ```
 
 ## Usage
@@ -77,7 +78,19 @@ php scaffold-admin:model Posts
 
 ```bash
 php artisan scaffold-admin:view        Scaffold the views for a model
+
+name : Name of the view
 ```
+
+Exemples:
+
+```bash
+php artisan scaffold-admin:view posts
+```
+
+will generate the file `resources/views/admin/posts/index.blade.php` and all the layout files for AdminLTE.
+
+Don't forget to publish the assets (php artisan vendor:publish) to publish all the css/js necessary for AdminLTE.
 
 ## Change log
 
