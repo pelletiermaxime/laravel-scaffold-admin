@@ -46,12 +46,31 @@ will generate the file `app/Http/Controllers/Admin/Posts.php` with a `Posts` cla
 
 ```bash
 php artisan scaffold-admin:migration   Scaffold a migration file.
+
+name : Name of the migration
+--fields= : Comma-separated list of fields in the format COLUMN_NAME:COLUMN_TYPE.
+```
+
+Behind the scene this command uses the great package laracasts/generators. Have a look at [the documentation for detailed examples.][link-laracasts-generators]
+
+Exemples:
+
+```bash
+php artisan scaffold-admin:migration create_posts_table --fields="name:string"
 ```
 
 ### Scaffold a Model file
 
 ```bash
 php artisan scaffold-admin:model       Scaffold a model class.
+
+name : Name of the model
+```
+
+Exemples:
+
+```bash
+php scaffold-admin:model Posts
 ```
 
 ### Scaffold a View file
@@ -78,16 +97,17 @@ https://github.com/acacha/adminlte-laravel/
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/:vendor/:package_name.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/pelletiermaxime/laravel-scaffold-admin.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/:vendor/:package_name/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/:vendor/:package_name.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/:vendor/:package_name.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/:vendor/:package_name.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pelletiermaxime/laravel-scaffold-admin/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pelletiermaxime/laravel-scaffold-admin.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/pelletiermaxime/laravel-scaffold-admin.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/pelletiermaxime/laravel-scaffold-admin.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/:vendor/:package_name
-[link-travis]: https://travis-ci.org/:vendor/:package_name
-[link-scrutinizer]: https://scrutinizer-ci.com/g/:vendor/:package_name/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/:vendor/:package_name
-[link-downloads]: https://packagist.org/packages/:vendor/:package_name
+[link-packagist]: https://packagist.org/packages/pelletiermaxime/laravel-scaffold-admin
+[link-travis]: https://travis-ci.org/pelletiermaxime/laravel-scaffold-admin
+[link-scrutinizer]: https://scrutinizer-ci.com/g/pelletiermaxime/laravel-scaffold-admin/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/pelletiermaxime/laravel-scaffold-admin
+[link-downloads]: https://packagist.org/packages/pelletiermaxime/laravel-scaffold-admin
 [link-author]: https://github.com/pelletiermaxime
+[link-laracasts-generators]: https://github.com/laracasts/Laravel-5-Generators-Extended#migrations-with-schema
