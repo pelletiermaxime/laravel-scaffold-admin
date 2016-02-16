@@ -1,0 +1,30 @@
+default:
+    formatters:
+        pretty: true
+    autoload:
+        - %paths.base%/tests/contexts
+    suites:
+        # ui:
+            # paths: [ %paths.base%/tests/features ]
+            # contexts: [ UserInterfaceContext ]
+            # filters: { tags: '@ui' }
+        domain:
+            paths: [ %paths.base%/tests/features ]
+            contexts: [ DomainContext ]
+            # filters: { tags: '@domain' }
+    extensions:
+        Behat\MinkExtension:
+            goutte: ~
+            base_url: http://127.0.0.1:8000
+            show_cmd: firefox %s
+    gherkin:
+        filters:
+            tags: "~@wip"
+travisci:
+    extensions:
+        Behat\MinkExtension:
+            goutte: ~
+            base_url: http://localhost:8000
+    gherkin:
+        filters:
+            tags: ~@wip&&~@javascript
