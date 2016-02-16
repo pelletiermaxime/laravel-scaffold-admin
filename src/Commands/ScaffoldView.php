@@ -2,10 +2,9 @@
 
 namespace Pelletiermaxime\LaravelScaffoldAdmin\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Console\GeneratorCommand;
 
-class ScaffoldView extends Command
+class ScaffoldView extends GeneratorCommand
 {
     protected $signature = '
         scaffold-admin:view
@@ -20,13 +19,6 @@ class ScaffoldView extends Command
      * @var string
      */
     protected $type = 'View';
-
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-
-        $this->files = $files;
-    }
 
     /**
      * Execute the console command.
