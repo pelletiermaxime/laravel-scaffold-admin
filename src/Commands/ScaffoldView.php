@@ -41,6 +41,8 @@ class ScaffoldView extends GeneratorCommand
                 $this->generateView($localPath);
             }
         }
+
+        $this->generateCrudViews($this->getNameInput());
     }
 
     private function generateView($localPath)
@@ -89,5 +91,13 @@ class ScaffoldView extends GeneratorCommand
     protected function buildClass($localPath)
     {
         return $this->files->get($localPath);
+    }
+
+    public function generateCrudViews($viewName)
+    {
+        $m = new \Mustache_Engine;
+        $tpl = $this->files->get(__DIR__.'/../stubs/views/crud/index.blade.php');
+        $pomme = $m->render($tpl, ['viewName' => $viewName]);
+        $this->files->put(base_path("resources/views/admin/$viewName/index.blade.php"), $pomme);
     }
 }
