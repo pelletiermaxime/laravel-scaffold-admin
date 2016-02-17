@@ -20,12 +20,23 @@ class ScaffoldView extends GeneratorCommand
      */
     protected $type = 'View';
 
+    private $baseAdminViewPath;
+
     /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
+    {
+        $this->baseAdminViewPath = base_path('resources/views/admin');
+
+        $this->generateBaseViews();
+
+        $this->generateCrudViews($this->getNameInput());
+    }
+
+    private function generateBaseViews()
     {
         $views = $this->getStub();
         foreach ($views as $localPath) {
@@ -41,17 +52,14 @@ class ScaffoldView extends GeneratorCommand
                 $this->generateView($localPath);
             }
         }
-
-        $this->generateCrudViews($this->getNameInput());
     }
 
     private function generateView($localPath)
     {
-        $publishedViewsBasePath = base_path('resources/views/admin');
         $localViewsPath = __DIR__.'/../stubs/views';
 
         $generatedFilePath = str_replace($localViewsPath, '', $localPath);
-        $generatedPath = $publishedViewsBasePath . $generatedFilePath;
+        $generatedPath = $this->baseAdminViewPath . $generatedFilePath;
 
         if ($this->files->exists($generatedPath)) {
             $this->warn("$generatedPath already exists");
@@ -97,7 +105,7 @@ class ScaffoldView extends GeneratorCommand
     {
         $m = new \Mustache_Engine;
         $tpl = $this->files->get(__DIR__.'/../stubs/views/crud/index.blade.php');
-        $pomme = $m->render($tpl, ['viewName' => $viewName]);
-        $this->files->put(base_path("resources/views/admin/$viewName/index.blade.php"), $pomme);
+        $compiledFile = $m->render($tpl, ['viewName' => $viewName]);
+        $this->files->put("{$this->baseAdminViewPath}/$viewName/index.blade.php", $compiledFile);
     }
 }
