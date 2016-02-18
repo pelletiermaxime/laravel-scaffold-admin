@@ -103,9 +103,17 @@ class ScaffoldView extends GeneratorCommand
 
     public function generateCrudViews($viewName)
     {
+        $generatedPath = "{$this->baseAdminViewPath}/$viewName/index.blade.php";
+        if ($this->files->exists($generatedPath)) {
+            $this->warn("$generatedPath already exists");
+            return;
+        }
+
         $m = new \Mustache_Engine;
         $tpl = $this->files->get(__DIR__.'/../stubs/views/crud/index.blade.php');
         $compiledFile = $m->render($tpl, ['viewName' => $viewName]);
-        $this->files->put("{$this->baseAdminViewPath}/$viewName/index.blade.php", $compiledFile);
+        $this->files->put($generatedPath, $compiledFile);
+
+        $this->info("$generatedPath created successfully.");
     }
 }
