@@ -83,6 +83,10 @@ class {{ $class }} extends Controller
      */
     public function destroy($id)
     {
-        //
+        {{ $model }}::destroy($id);
+
+        // Session::flash('flash_message', '{{ $model }} successfully deleted!');
+
+        return redirect('{{ $view }}');
     }
 }
