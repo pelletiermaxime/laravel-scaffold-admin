@@ -19,6 +19,24 @@ $ php artisan vendor:publish
 
 ## Usage
 
+### Scaffold everything (migration, model, controller, routes and views)
+
+```bash
+php artisan scaffold-admin:generate  Scaffold an admin CRUD
+
+name : Name of the model
+--fields= : Comma-separated list of fields in the format COLUMN_NAME:COLUMN_TYPE.
+```
+
+Examples:
+
+```bash
+php artisan scaffold-admin:generate Posts
+```
+
+will generate the file `app/Http/Controllers/Admin/PostsController.php` with a `PostsController` class, generate a route for /admin/posts in routes.php, generate an empty model Posts, generate a migration file with the default values (an ID and the timestamp fields) and generate CRUD views.
+
+
 ### Scaffold a Controller
 
 ```bash
@@ -29,7 +47,7 @@ name : Name of the associated model
 --no-route : Disable the default route appended to your routes.php file.
 ```
 
-Exemples:
+Examples:
 
 ```bash
 php artisan scaffold-admin:controller Posts
@@ -54,7 +72,7 @@ name : Name of the migration
 
 Behind the scene this command uses the great package laracasts/generators. Have a look at [the documentation for detailed examples.][link-laracasts-generators]
 
-Exemples:
+Examples:
 
 ```bash
 php artisan scaffold-admin:migration create_posts_table --fields="name:string"
@@ -68,7 +86,7 @@ php artisan scaffold-admin:model       Scaffold a model class.
 name : Name of the model
 ```
 
-Exemples:
+Examples:
 
 ```bash
 php scaffold-admin:model Posts
@@ -82,7 +100,7 @@ php artisan scaffold-admin:view        Scaffold the views for a model
 name : Name of the view
 ```
 
-Exemples:
+Examples:
 
 ```bash
 php artisan scaffold-admin:view posts

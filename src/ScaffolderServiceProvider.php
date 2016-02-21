@@ -44,7 +44,8 @@ class ScaffolderServiceProvider extends ServiceProvider
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldControllerCommand',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldMigration',
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldModel',
-            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldView'
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldView',
+            'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldGenerateCommand'
         );
     }
 
