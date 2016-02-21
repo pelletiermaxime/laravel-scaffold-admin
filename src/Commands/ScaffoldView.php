@@ -109,6 +109,8 @@ class ScaffoldView extends GeneratorCommand
             return;
         }
 
+        $this->makeDirectory($generatedPath);
+
         $m = new \Mustache_Engine;
         $tpl = $this->files->get(__DIR__.'/../stubs/views/crud/index.blade.php');
         $compiledFile = $m->render($tpl, ['viewName' => $viewName]);
