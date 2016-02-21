@@ -39,6 +39,7 @@ class ScaffolderServiceProvider extends ServiceProvider
         $this->publishes($this->assetsPath(), $this->packageName);
 
         $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+        $this->app->register('Lavary\Menu\ServiceProvider');
 
         $this->commands(
             'Pelletiermaxime\LaravelScaffoldAdmin\Commands\ScaffoldControllerCommand',
